@@ -1,0 +1,4 @@
+2025-05-19 19:09:43.299628+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM IMAGEN INFORME [*]MEDICO"
+Syntax error in SQL statement "SELECT * FROM IMAGEN INFORME [*]MEDICO"; SQL statement:
+SELECT * FROM IMAGEN INFORME MEDICO [42000-224]
