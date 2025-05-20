@@ -75,8 +75,23 @@ class MedicoControllerMockMvcIT extends AbstractIntegration {
     }
 
     @Test
+    @DisplayName("Busca un medico por ID y lo obtiene correctamente")
+    void getMedicoById_isObtained() throws Exception {
+        Medico medico = crearMedico();
+
+        // Busca el médico por ID
+        this.mockMvc.perform(get("/medico/" + medico.getId()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.id").value(medico.getId()))
+                .andExpect(jsonPath("$.dni").value(medico.getDni()))
+                .andExpect(jsonPath("$.nombre").value(medico.getNombre()))
+                .andExpect(jsonPath("$.especialidad").value(medico.getEspecialidad()));
+    }
+
+    @Test
     @DisplayName("Actualiza un medico y lo obtiene correctamente")
-    void updateMedicoPut_isObtainedWithGet() throws Exception {
+    void updateMedicoPut_isObtainedCorrectly() throws Exception {
         Medico medico = crearMedico();
 
         // Actualiza los datos del médico
