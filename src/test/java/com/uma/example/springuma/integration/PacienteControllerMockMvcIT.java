@@ -1,3 +1,5 @@
+// Grupo formado por Francisco Ramírez Cañadas y Jorge Repullo Serrano.
+
 package com.uma.example.springuma.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,7 +41,7 @@ class PacienteControllerMockMvcIT extends AbstractIntegration {
                 .content(objectMapper.writeValueAsString(medico)))
                 .andExpect(status().isCreated());
         
-        // Retrieve the created medico to get its generated ID
+        // Verifica que el médico se haya creado correctamente
         String response = this.mockMvc.perform(get("/medico/dni/" + medico.getDni()))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -73,7 +75,7 @@ class PacienteControllerMockMvcIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Asociar un paciente a un médico y obtenerlo")
-    void asociarPacienteAMedico_yObtenerlo() throws Exception {
+    void asociarPacienteAMedico() throws Exception {
         Paciente paciente = crearPaciente(medico);
 
         this.mockMvc.perform(get("/paciente/" + paciente.getId()))
@@ -86,7 +88,7 @@ class PacienteControllerMockMvcIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Editar paciente cambiando su nombre")
-    void updateCuentaPut_cambiandoNombrePaciente() throws Exception {
+    void updatePaciente_cambiarNombre() throws Exception {
         Paciente paciente = crearPaciente(medico);
         paciente.setNombre("Pedro");
 

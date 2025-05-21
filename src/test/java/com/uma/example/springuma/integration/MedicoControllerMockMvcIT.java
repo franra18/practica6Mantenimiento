@@ -1,3 +1,5 @@
+// Grupo formado por Francisco Ramírez Cañadas y Jorge Repullo Serrano.
+
 package com.uma.example.springuma.integration;
 
 import org.junit.jupiter.api.DisplayName;
@@ -55,13 +57,13 @@ class MedicoControllerMockMvcIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Crea un medico y lo obtiene correctamente")
-    void createMedicoPost_isObtainedWithGet() throws Exception {
+    void testCreateMedico() throws Exception {
         Medico medico = crearMedico();
     }
 
     @Test
     @DisplayName("Busca un medico por DNI y lo obtiene correctamente")
-    void getMedicoByDni_isObtained() throws Exception {
+    void getMedicoByDni() throws Exception {
         Medico medico = crearMedico();
 
         // Busca el médico por DNI
@@ -76,7 +78,7 @@ class MedicoControllerMockMvcIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Busca un medico por ID y lo obtiene correctamente")
-    void getMedicoById_isObtained() throws Exception {
+    void getMedicoById() throws Exception {
         Medico medico = crearMedico();
 
         // Busca el médico por ID
@@ -91,7 +93,7 @@ class MedicoControllerMockMvcIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Actualiza un medico y lo obtiene correctamente")
-    void updateMedicoPut_isObtainedCorrectly() throws Exception {
+    void updateMedico() throws Exception {
         Medico medico = crearMedico();
 
         // Actualiza los datos del médico
@@ -112,7 +114,7 @@ class MedicoControllerMockMvcIT extends AbstractIntegration {
 
     @Test
     @DisplayName("Comprueba que el medico se ha eliminado correctamente")
-    void deleteMedicoDelete_isDeleted() throws Exception {
+    void deleteMedico() throws Exception {
         Medico medico = crearMedico();
 
         // Elimina el médico

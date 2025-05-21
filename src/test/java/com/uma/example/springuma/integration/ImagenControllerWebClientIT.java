@@ -1,7 +1,10 @@
+// Grupo formado por Francisco Ramírez Cañadas y Jorge Repullo Serrano.
+
 package com.uma.example.springuma.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uma.example.springuma.integration.base.AbstractIntegration;
+import com.uma.example.springuma.model.Imagen;
 import com.uma.example.springuma.model.Medico;
 import com.uma.example.springuma.model.Paciente;
 
@@ -40,6 +43,7 @@ public class ImagenControllerWebClientIT {
 
         private Medico medico;
         private Paciente paciente;
+        private Imagen imagen;
 
         @PostConstruct
         public void init() {
@@ -59,6 +63,10 @@ public class ImagenControllerWebClientIT {
                 paciente.setDni("87654321B");
                 paciente.setMedico(medico);
                 paciente.setId(1);
+
+                imagen = new Imagen();
+                imagen.setId(1);
+                imagen.setPaciente(paciente);
         }
 
         @BeforeEach
@@ -80,14 +88,15 @@ public class ImagenControllerWebClientIT {
 
         @Test
         @DisplayName("Subir imagen de paciente correctamente debería devolver una respuesta válida que contenga el nombre del archivo")
-        void uploadImage_pacienteCorrecto() throws IOException {
+        void subirImagen_pacienteCorrecto_devuleveRespuestaValida() throws IOException {
+                // Sube la imagen
                 File uploadFile = new File("./src/test/resources/healthy.png");
                 
                 MultipartBodyBuilder builder = new MultipartBodyBuilder();
                 builder.part("image", new FileSystemResource(uploadFile));
                 builder.part("paciente", paciente, MediaType.APPLICATION_JSON);
                 
-                // Sube la imagen
+                
                 FluxExchangeResult<String> responseBody = webTestClient.post()
                         .uri("/imagen")
                         .contentType(MediaType.MULTIPART_FORM_DATA) // Esta parte es obligatoria
@@ -111,7 +120,7 @@ public class ImagenControllerWebClientIT {
 
         @Test
         @DisplayName("Subir dos imagenes para el mismo paciente debería devolver una respuesta válida que contenga el nombre de ambos archivos")
-        void uploadTwoImages_samePaciente() throws IOException {
+        void subirDosImagenes_mismoPaciente_devuelveRespuestaValida() throws IOException {
                 // Crea un paciente
                 Paciente paciente2 = new Paciente();
                 paciente2.setNombre("Jorge");
@@ -168,7 +177,7 @@ public class ImagenControllerWebClientIT {
 
         @Test
         @DisplayName("Intentar subir una imagen sin archivo debería devolver un error 400")
-        void uploadImage_sinArchivo() throws IOException {
+        void subirImagen_sinArchivo_devuelveError() throws IOException {
                 MultipartBodyBuilder builder = new MultipartBodyBuilder();
                 // Sin parte de imagen
                 builder.part("paciente", paciente, MediaType.APPLICATION_JSON);
@@ -183,7 +192,7 @@ public class ImagenControllerWebClientIT {
 
         @Test
         @DisplayName("Intentar subir una imagen sin datos de paciente debería devolver un error 400")
-        void uploadImage_sinDatosPaciente() throws IOException {
+        void subirImagen_sinDatosPaciente_devuelveError() throws IOException {
                 File uploadFile = new File("./src/test/resources/healthy.png");
 
                 MultipartBodyBuilder builder = new MultipartBodyBuilder();
